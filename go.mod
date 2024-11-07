@@ -3,7 +3,7 @@ module github.com/bonddim/monitoring-mixin
 go 1.23.0
 
 require (
-	github.com/prometheus/prometheus v0.55.0
+	github.com/prometheus/prometheus v0.55.1
 	gopkg.in/yaml.v3 v3.0.1
 )
 
