@@ -93,12 +93,12 @@ groups:
             summary: DaemonSet rollout is stuck.
         - alert: "KubeContainerWaiting"
           expr: |-
-            sum by (namespace, pod, container, cluster) (kube_pod_container_status_waiting_reason{job="kube-state-metrics"}) > 0
+            kube_pod_container_status_waiting_reason{reason!="CrashLoopBackOff", job="kube-state-metrics"} > 0
           for: 1h
           labels:
             severity: warning
           annotations:
-            description: pod/{{ $labels.pod }} in namespace {{ $labels.namespace }} on container {{ $labels.container}} has been in waiting state for longer than 1 hour.
+            description: 'pod/{{ $labels.pod }} in namespace {{ $labels.namespace }} on container {{ $labels.container}} has been in waiting state for longer than 1 hour. (reason: "{{ $labels.reason }}").'
             runbook_url: https://github.com/kubernetes-monitoring/kubernetes-mixin/tree/master/runbook.md#alert-name-kubecontainerwaiting
             summary: Pod container waiting longer than 1 hour
         - alert: "KubeDaemonSetNotScheduled"
@@ -234,7 +234,7 @@ groups:
             summary: Namespace quota has exceeded the limits.
         - alert: "CPUThrottlingHigh"
           expr: |-
-            sum(increase(container_cpu_cfs_throttled_periods_total{container!="", }[5m])) by (cluster, container, pod, namespace) / sum(increase(container_cpu_cfs_periods_total{}[5m])) by (cluster, container, pod, namespace) > (25 / 100)
+            sum(increase(container_cpu_cfs_throttled_periods_total{container!="", job="cadvisor", }[5m])) without (id, metrics_path, name, image, endpoint, job, node) / sum(increase(container_cpu_cfs_periods_total{job="cadvisor", }[5m])) without (id, metrics_path, name, image, endpoint, job, node) > (25 / 100)
           for: 15m
           labels:
             severity: info
@@ -370,7 +370,7 @@ groups:
       rules:
         - alert: "KubeClientCertificateExpiration"
           expr: |-
-            apiserver_client_certificate_expiration_seconds_count{job="kube-apiserver"} > 0 and on(cluster, job) histogram_quantile(0.01, sum by (cluster, job, le) (rate(apiserver_client_certificate_expiration_seconds_bucket{job="kube-apiserver"}[5m]))) < 604800
+            histogram_quantile(0.01, sum without (namespace, service, endpoint) (rate(apiserver_client_certificate_expiration_seconds_bucket{job="kube-apiserver"}[5m]))) < 604800 and on(job, cluster, instance) apiserver_client_certificate_expiration_seconds_count{job="kube-apiserver"} > 0
           for: 5m
           labels:
             severity: warning
@@ -380,7 +380,7 @@ groups:
             summary: Client certificate is about to expire.
         - alert: "KubeClientCertificateExpiration"
           expr: |-
-            apiserver_client_certificate_expiration_seconds_count{job="kube-apiserver"} > 0 and on(cluster, job) histogram_quantile(0.01, sum by (cluster, job, le) (rate(apiserver_client_certificate_expiration_seconds_bucket{job="kube-apiserver"}[5m]))) < 86400
+            histogram_quantile(0.01, sum without (namespace, service, endpoint) (rate(apiserver_client_certificate_expiration_seconds_bucket{job="kube-apiserver"}[5m]))) < 86400 and on(job, cluster, instance) apiserver_client_certificate_expiration_seconds_count{job="kube-apiserver"} > 0
           for: 5m
           labels:
             severity: critical
