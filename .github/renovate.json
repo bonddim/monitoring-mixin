@@ -16,5 +16,5 @@
     }
   ],
   "enabledManagers": ["github-actions", "gomod", "custom.regex"],
-  "postUpgradeTasks": { "commands": ["install-tool golang 1.23 && make JB_ARGS=update"] }
+  "postUpgradeTasks": { "commands": ["install-tool golang 1.23.3 && make JB_ARGS=update"] }
 }
