@@ -13,13 +13,11 @@
       "customType": "regex",
       "datasourceTemplate": "git-refs",
       "depNameTemplate": "kubernetes-mixin",
-      "fileMatch": [
-        "(^|/)jsonnetfile\\.json$"
-      ],
-      "matchStrings": [
-        "\\\"version\\\": \\\"(?<currentDigest>\\w+?)\\\"\\n"
-      ],
+      "fileMatch": ["(^|/)jsonnetfile\\.json$"],
+      "matchStrings": ["\\\"version\\\": \\\"(?<currentDigest>\\w+?)\\\"\\n"],
       "packageNameTemplate": "https://github.com/kubernetes-monitoring/kubernetes-mixin"
     }
-  ]
+  ],
+  "enabledManagers": ["github-actions", "gomod", "custom.regex"],
+  "postUpgradeTasks": { "commands": ["make JB_ARGS=update"] }
 }
