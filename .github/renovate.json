@@ -16,7 +16,7 @@
   ],
   "enabledManagers": ["github-actions", "gomod", "custom.regex"],
   "postUpgradeTasks": {
-    "commands": ["install-tool golang 1.23.3 && make"],
-    "fileFilters": ["**/docs/**"]
+    "commands": ["install-tool golang 1.23.3 && make update"],
+    "fileFilters": ["**/docs/**", "**/jsonnetfile.lock.json"]
   }
 }
