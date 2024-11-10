@@ -44,9 +44,6 @@ $(tools):
 vendor: $(tools)
 	@$(JB_BIN) $(JB_ARGS)
 
-update: JB_ARGS=update
-update: vendor
-
 .PHONY: clean
 clean:
 	@rm -rf $(OUT_DIR)
