@@ -14,10 +14,8 @@
       "packageNameTemplate": "https://github.com/kubernetes-monitoring/kubernetes-mixin"
     }
   ],
-  "enabledManagers": ["github-actions", "gomod", "custom.regex"],
+  "enabledManagers": ["custom.regex"],
   "postUpgradeTasks": {
-    "commands": ["install-tool golang 1.23.3 && make JB_ARGS=update"],
-    "executionMode": "branch",
-    "fileFilters": ["**/jsonnetfile.lock.json", "**/docs/**/*"]
+    "commands": ["install-tool golang 1.23.3 && make JB_ARGS=update"]
   }
 }
