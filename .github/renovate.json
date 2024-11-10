@@ -11,10 +11,12 @@
       "depNameTemplate": "kubernetes-mixin",
       "fileMatch": ["(^|/)jsonnetfile\\.json$"],
       "matchStrings": ["\\\"version\\\": \\\"(?<currentDigest>\\w+?)\\\"\\n"],
-      "packageNameTemplate": "https://github.com/kubernetes-monitoring/kubernetes-mixin",
-      "versioningTemplate": "git"
+      "packageNameTemplate": "https://github.com/kubernetes-monitoring/kubernetes-mixin"
     }
   ],
   "enabledManagers": ["github-actions", "gomod", "custom.regex"],
-  "postUpgradeTasks": { "commands": ["install-tool golang 1.23.3 && make JB_ARGS=update"] }
+  "postUpgradeTasks": {
+    "commands": ["install-tool golang 1.23.3 && make"],
+    "fileFilters": ["docs/**/*"]
+  }
 }
