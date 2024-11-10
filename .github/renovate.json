@@ -1,8 +1,10 @@
 {
   "$schema": "https://docs.renovatebot.com/renovate-schema.json",
   "extends": ["config:recommended", ":disableDependencyDashboard"],
+  "addLabels": ["renovate"],
   "automerge": true,
   "automergeStrategy": "squash",
+  "branchPrefix": "renovate-action/",
   "customManagers": [
     {
       "currentValueTemplate": "master",
