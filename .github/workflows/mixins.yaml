@@ -14,13 +14,11 @@ jobs:
       - name: Render mixins
         run: make
 
-      - name: Check for changes
-        run: echo "changed=$(git status --short docs | wc -l)" >> "$GITHUB_OUTPUT"
-        id: status
-
-      - name: Detected changes
-        if: ${{ steps.status.outputs.changed !=0 }}
+      - name: Check for changed mixins
         run: |
-          echo "::error::Detected changes in the rendered docs files. Please run 'make' locally and commit the changes."
-          git status --short docs
-          exit 1
+          if [[ $(git status --short docs | wc -l) -ne 0 ]]; then
+            echo "Detected changes in the rendered docs files. Please run 'make' locally and commit the changes."
+            git status --short docs
+            exit 1
+          fi
+        id: status
