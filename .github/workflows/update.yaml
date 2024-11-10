@@ -1,0 +1,40 @@
+name: Update
+
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: "0 7 * * *"
+
+jobs:
+  auto:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/create-github-app-token@v1
+        id: app-token
+        with:
+          app-id: ${{ secrets.app_id  }}
+          private-key: ${{ secrets.app_private_key }}
+          owner: ${{ github.repository_owner }}
+          repositories: ${{ github.repository }}
+
+      - uses: actions/setup-go@v5
+        with:
+          go-version-file: go.mod
+
+      - name: Render mixins
+        run: make JB_ARGS=update
+
+      - uses: peter-evans/create-pull-request@v7
+        id: cpr
+        with:
+          token: ${{ steps.app-token.outputs.token }}
+          title: Update mixins
+          sign-commits: true
+
+      - name: Set automerge
+        run: gh pr merge ${{ steps.cpr.outputs.pull-request-number }} --auto --delete-branch --squash
+        if: ${{ steps.cpr.outputs.pull-request-operation == 'created' }}
+        env:
+          GH_TOKEN: ${{ steps.app-token.outputs.token }}
