@@ -498,7 +498,7 @@
             "severity": "warning"
           },
           "annotations": {
-            "description": "A client certificate used to authenticate to kubernetes apiserver is expiring in less than 7.0 days.",
+            "description": "A client certificate used to authenticate to kubernetes apiserver is expiring in less than 7.0 days on cluster {{ $labels.cluster }}.",
             "runbook_url": "https://github.com/kubernetes-monitoring/kubernetes-mixin/tree/master/runbook.md#alert-name-kubeclientcertificateexpiration",
             "summary": "Client certificate is about to expire."
           }
@@ -511,7 +511,7 @@
             "severity": "critical"
           },
           "annotations": {
-            "description": "A client certificate used to authenticate to kubernetes apiserver is expiring in less than 24.0 hours.",
+            "description": "A client certificate used to authenticate to kubernetes apiserver is expiring in less than 24.0 hours on cluster {{ $labels.cluster }}.",
             "runbook_url": "https://github.com/kubernetes-monitoring/kubernetes-mixin/tree/master/runbook.md#alert-name-kubeclientcertificateexpiration",
             "summary": "Client certificate is about to expire."
           }
