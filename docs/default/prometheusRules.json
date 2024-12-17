@@ -36,7 +36,7 @@
         },
         {
           "record": "cluster_verb_scope:apiserver_request_sli_duration_seconds_count:increase30d",
-          "expr": "sum by (cluster, verb, scope) (cluster_verb_scope_le:apiserver_request_sli_duration_seconds_bucket:increase30d{le=\"+Inf\"} * 24 * 30)"
+          "expr": "sum by (cluster, verb, scope) (cluster_verb_scope_le:apiserver_request_sli_duration_seconds_bucket:increase30d{le=\"+Inf\"})"
         },
         {
           "record": "code_resource:apiserver_request_total:rate5m",
