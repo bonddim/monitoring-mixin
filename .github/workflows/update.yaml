@@ -3,7 +3,7 @@ name: Update
 on:
   workflow_dispatch:
   schedule:
-    - cron: "0 7 * * *"
+    - cron: "0 7 * * 1"
 
 jobs:
   auto:
@@ -25,15 +25,33 @@ jobs:
       - name: Render mixins
         run: make JB_ARGS=update
 
+      - name: Check for changed mixins
+        id: status
+        run: |
+          if [[ $(git status --short docs | wc -l) -ne 0 ]]; then
+            version=$(jq -r '.dependencies[] | select(.source.git.remote | contains("kubernetes-mixin")) | .version' jsonnetfile.lock.json)
+            echo "mixins-version=$version" >> "$GITHUB_OUTPUT"
+            echo "status=updated" >> "$GITHUB_OUTPUT"
+          fi
+
       - uses: peter-evans/create-pull-request@v7
+        if: ${{ steps.status.outputs.status == 'updated' }}
         id: cpr
         with:
           token: ${{ steps.app-token.outputs.token }}
           title: Update mixins
+          commit-message: Update mixins to ${{ steps.status.outputs.version }}
           sign-commits: true
 
-      - name: Set automerge
-        run: gh pr merge ${{ steps.cpr.outputs.pull-request-number }} --auto --delete-branch --squash
+      - name: Auto approve
+        continue-on-error: true
         if: ${{ steps.cpr.outputs.pull-request-operation == 'created' }}
+        run: gh pr review --approve "${{ steps.cpr.outputs.pull-request-number }}"
+        env:
+          GH_TOKEN: ${{ steps.app-token.outputs.token }}
+
+      - name: Set automerge
+        if: ${{ steps.cpr.outputs.pull-request-operation == 'created' }}
+        run: gh pr merge ${{ steps.cpr.outputs.pull-request-number }} --auto --delete-branch --squash
         env:
           GH_TOKEN: ${{ steps.app-token.outputs.token }}
