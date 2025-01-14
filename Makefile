@@ -42,8 +42,12 @@ $(tools):
 
 .PHONY: vendor
 vendor: $(tools)
-	@$(JB_BIN) $(JB_ARGS)
+	$(JB_BIN) $(JB_ARGS)
 
 .PHONY: clean
 clean:
 	@rm -rf $(OUT_DIR)
+
+.PHONY: update
+update: JB_ARGS=update
+update: all
