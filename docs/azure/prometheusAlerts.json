@@ -11,7 +11,7 @@
             "severity": "warning"
           },
           "annotations": {
-            "description": "Pod {{ $labels.namespace }}/{{ $labels.pod }} ({{ $labels.container }}) is in waiting state (reason: \"CrashLoopBackOff\").",
+            "description": "Pod {{ $labels.namespace }}/{{ $labels.pod }} ({{ $labels.container }}) is in waiting state (reason: \"CrashLoopBackOff\") on cluster {{ $labels.cluster }}.",
             "runbook_url": "https://github.com/kubernetes-monitoring/kubernetes-mixin/tree/master/runbook.md#alert-name-kubepodcrashlooping",
             "summary": "Pod is crash looping."
           }
@@ -24,7 +24,7 @@
             "severity": "warning"
           },
           "annotations": {
-            "description": "Pod {{ $labels.namespace }}/{{ $labels.pod }} has been in a non-ready state for longer than 15 minutes.",
+            "description": "Pod {{ $labels.namespace }}/{{ $labels.pod }} has been in a non-ready state for longer than 15 minutes on cluster {{ $labels.cluster }}.",
             "runbook_url": "https://github.com/kubernetes-monitoring/kubernetes-mixin/tree/master/runbook.md#alert-name-kubepodnotready",
             "summary": "Pod has been in a non-ready state for more than 15 minutes."
           }
@@ -37,7 +37,7 @@
             "severity": "warning"
           },
           "annotations": {
-            "description": "Deployment generation for {{ $labels.namespace }}/{{ $labels.deployment }} does not match, this indicates that the Deployment has failed but has not been rolled back.",
+            "description": "Deployment generation for {{ $labels.namespace }}/{{ $labels.deployment }} does not match, this indicates that the Deployment has failed but has not been rolled back on cluster {{ $labels.cluster }}.",
             "runbook_url": "https://github.com/kubernetes-monitoring/kubernetes-mixin/tree/master/runbook.md#alert-name-kubedeploymentgenerationmismatch",
             "summary": "Deployment generation mismatch due to possible roll-back"
           }
@@ -50,7 +50,7 @@
             "severity": "warning"
           },
           "annotations": {
-            "description": "Deployment {{ $labels.namespace }}/{{ $labels.deployment }} has not matched the expected number of replicas for longer than 15 minutes.",
+            "description": "Deployment {{ $labels.namespace }}/{{ $labels.deployment }} has not matched the expected number of replicas for longer than 15 minutes on cluster {{ $labels.cluster }}.",
             "runbook_url": "https://github.com/kubernetes-monitoring/kubernetes-mixin/tree/master/runbook.md#alert-name-kubedeploymentreplicasmismatch",
             "summary": "Deployment has not matched the expected number of replicas."
           }
@@ -63,7 +63,7 @@
             "severity": "warning"
           },
           "annotations": {
-            "description": "Rollout of deployment {{ $labels.namespace }}/{{ $labels.deployment }} is not progressing for longer than 15 minutes.",
+            "description": "Rollout of deployment {{ $labels.namespace }}/{{ $labels.deployment }} is not progressing for longer than 15 minutes on cluster {{ $labels.cluster }}.",
             "runbook_url": "https://github.com/kubernetes-monitoring/kubernetes-mixin/tree/master/runbook.md#alert-name-kubedeploymentrolloutstuck",
             "summary": "Deployment rollout is not progressing."
           }
@@ -76,7 +76,7 @@
             "severity": "warning"
           },
           "annotations": {
-            "description": "StatefulSet {{ $labels.namespace }}/{{ $labels.statefulset }} has not matched the expected number of replicas for longer than 15 minutes.",
+            "description": "StatefulSet {{ $labels.namespace }}/{{ $labels.statefulset }} has not matched the expected number of replicas for longer than 15 minutes on cluster {{ $labels.cluster }}.",
             "runbook_url": "https://github.com/kubernetes-monitoring/kubernetes-mixin/tree/master/runbook.md#alert-name-kubestatefulsetreplicasmismatch",
             "summary": "StatefulSet has not matched the expected number of replicas."
           }
@@ -89,7 +89,7 @@
             "severity": "warning"
           },
           "annotations": {
-            "description": "StatefulSet generation for {{ $labels.namespace }}/{{ $labels.statefulset }} does not match, this indicates that the StatefulSet has failed but has not been rolled back.",
+            "description": "StatefulSet generation for {{ $labels.namespace }}/{{ $labels.statefulset }} does not match, this indicates that the StatefulSet has failed but has not been rolled back on cluster {{ $labels.cluster }}.",
             "runbook_url": "https://github.com/kubernetes-monitoring/kubernetes-mixin/tree/master/runbook.md#alert-name-kubestatefulsetgenerationmismatch",
             "summary": "StatefulSet generation mismatch due to possible roll-back"
           }
@@ -102,7 +102,7 @@
             "severity": "warning"
           },
           "annotations": {
-            "description": "StatefulSet {{ $labels.namespace }}/{{ $labels.statefulset }} update has not been rolled out.",
+            "description": "StatefulSet {{ $labels.namespace }}/{{ $labels.statefulset }} update has not been rolled out on cluster {{ $labels.cluster }}.",
             "runbook_url": "https://github.com/kubernetes-monitoring/kubernetes-mixin/tree/master/runbook.md#alert-name-kubestatefulsetupdatenotrolledout",
             "summary": "StatefulSet update has not been rolled out."
           }
@@ -115,7 +115,7 @@
             "severity": "warning"
           },
           "annotations": {
-            "description": "DaemonSet {{ $labels.namespace }}/{{ $labels.daemonset }} has not finished or progressed for at least 15m.",
+            "description": "DaemonSet {{ $labels.namespace }}/{{ $labels.daemonset }} has not finished or progressed for at least 15m on cluster {{ $labels.cluster }}.",
             "runbook_url": "https://github.com/kubernetes-monitoring/kubernetes-mixin/tree/master/runbook.md#alert-name-kubedaemonsetrolloutstuck",
             "summary": "DaemonSet rollout is stuck."
           }
@@ -128,7 +128,7 @@
             "severity": "warning"
           },
           "annotations": {
-            "description": "pod/{{ $labels.pod }} in namespace {{ $labels.namespace }} on container {{ $labels.container}} has been in waiting state for longer than 1 hour. (reason: \"{{ $labels.reason }}\").",
+            "description": "pod/{{ $labels.pod }} in namespace {{ $labels.namespace }} on container {{ $labels.container}} has been in waiting state for longer than 1 hour. (reason: \"{{ $labels.reason }}\") on cluster {{ $labels.cluster }}.",
             "runbook_url": "https://github.com/kubernetes-monitoring/kubernetes-mixin/tree/master/runbook.md#alert-name-kubecontainerwaiting",
             "summary": "Pod container waiting longer than 1 hour"
           }
@@ -141,7 +141,7 @@
             "severity": "warning"
           },
           "annotations": {
-            "description": "{{ $value }} Pods of DaemonSet {{ $labels.namespace }}/{{ $labels.daemonset }} are not scheduled.",
+            "description": "{{ $value }} Pods of DaemonSet {{ $labels.namespace }}/{{ $labels.daemonset }} are not scheduled on cluster {{ $labels.cluster }}.",
             "runbook_url": "https://github.com/kubernetes-monitoring/kubernetes-mixin/tree/master/runbook.md#alert-name-kubedaemonsetnotscheduled",
             "summary": "DaemonSet pods are not scheduled."
           }
@@ -154,7 +154,7 @@
             "severity": "warning"
           },
           "annotations": {
-            "description": "{{ $value }} Pods of DaemonSet {{ $labels.namespace }}/{{ $labels.daemonset }} are running where they are not supposed to run.",
+            "description": "{{ $value }} Pods of DaemonSet {{ $labels.namespace }}/{{ $labels.daemonset }} are running where they are not supposed to run on cluster {{ $labels.cluster }}.",
             "runbook_url": "https://github.com/kubernetes-monitoring/kubernetes-mixin/tree/master/runbook.md#alert-name-kubedaemonsetmisscheduled",
             "summary": "DaemonSet pods are misscheduled."
           }
@@ -166,7 +166,7 @@
             "severity": "warning"
           },
           "annotations": {
-            "description": "Job {{ $labels.namespace }}/{{ $labels.job_name }} is taking more than {{ \"43200\" | humanizeDuration }} to complete.",
+            "description": "Job {{ $labels.namespace }}/{{ $labels.job_name }} is taking more than {{ \"43200\" | humanizeDuration }} to complete on cluster {{ $labels.cluster }}.",
             "runbook_url": "https://github.com/kubernetes-monitoring/kubernetes-mixin/tree/master/runbook.md#alert-name-kubejobnotcompleted",
             "summary": "Job did not complete in time"
           }
@@ -179,7 +179,7 @@
             "severity": "warning"
           },
           "annotations": {
-            "description": "Job {{ $labels.namespace }}/{{ $labels.job_name }} failed to complete. Removing failed job after investigation should clear this alert.",
+            "description": "Job {{ $labels.namespace }}/{{ $labels.job_name }} failed to complete. Removing failed job after investigation should clear this alert on cluster {{ $labels.cluster }}.",
             "runbook_url": "https://github.com/kubernetes-monitoring/kubernetes-mixin/tree/master/runbook.md#alert-name-kubejobfailed",
             "summary": "Job failed to complete."
           }
@@ -192,7 +192,7 @@
             "severity": "warning"
           },
           "annotations": {
-            "description": "HPA {{ $labels.namespace }}/{{ $labels.horizontalpodautoscaler  }} has not matched the desired number of replicas for longer than 15 minutes.",
+            "description": "HPA {{ $labels.namespace }}/{{ $labels.horizontalpodautoscaler  }} has not matched the desired number of replicas for longer than 15 minutes on cluster {{ $labels.cluster }}.",
             "runbook_url": "https://github.com/kubernetes-monitoring/kubernetes-mixin/tree/master/runbook.md#alert-name-kubehpareplicasmismatch",
             "summary": "HPA has not matched desired number of replicas."
           }
@@ -205,7 +205,7 @@
             "severity": "warning"
           },
           "annotations": {
-            "description": "HPA {{ $labels.namespace }}/{{ $labels.horizontalpodautoscaler  }} has been running at max replicas for longer than 15 minutes.",
+            "description": "HPA {{ $labels.namespace }}/{{ $labels.horizontalpodautoscaler  }} has been running at max replicas for longer than 15 minutes on cluster {{ $labels.cluster }}.",
             "runbook_url": "https://github.com/kubernetes-monitoring/kubernetes-mixin/tree/master/runbook.md#alert-name-kubehpamaxedout",
             "summary": "HPA is running at max replicas"
           }
@@ -275,7 +275,7 @@
             "severity": "info"
           },
           "annotations": {
-            "description": "Namespace {{ $labels.namespace }} is using {{ $value | humanizePercentage }} of its {{ $labels.resource }} quota.",
+            "description": "Namespace {{ $labels.namespace }} is using {{ $value | humanizePercentage }} of its {{ $labels.resource }} quota on cluster {{ $labels.cluster }}.",
             "runbook_url": "https://github.com/kubernetes-monitoring/kubernetes-mixin/tree/master/runbook.md#alert-name-kubequotaalmostfull",
             "summary": "Namespace quota is going to be full."
           }
@@ -288,7 +288,7 @@
             "severity": "info"
           },
           "annotations": {
-            "description": "Namespace {{ $labels.namespace }} is using {{ $value | humanizePercentage }} of its {{ $labels.resource }} quota.",
+            "description": "Namespace {{ $labels.namespace }} is using {{ $value | humanizePercentage }} of its {{ $labels.resource }} quota on cluster {{ $labels.cluster }}.",
             "runbook_url": "https://github.com/kubernetes-monitoring/kubernetes-mixin/tree/master/runbook.md#alert-name-kubequotafullyused",
             "summary": "Namespace quota is fully used."
           }
@@ -301,7 +301,7 @@
             "severity": "warning"
           },
           "annotations": {
-            "description": "Namespace {{ $labels.namespace }} is using {{ $value | humanizePercentage }} of its {{ $labels.resource }} quota.",
+            "description": "Namespace {{ $labels.namespace }} is using {{ $value | humanizePercentage }} of its {{ $labels.resource }} quota on cluster {{ $labels.cluster }}.",
             "runbook_url": "https://github.com/kubernetes-monitoring/kubernetes-mixin/tree/master/runbook.md#alert-name-kubequotaexceeded",
             "summary": "Namespace quota has exceeded the limits."
           }
@@ -314,7 +314,7 @@
             "severity": "info"
           },
           "annotations": {
-            "description": "{{ $value | humanizePercentage }} throttling of CPU in namespace {{ $labels.namespace }} for container {{ $labels.container }} in pod {{ $labels.pod }}.",
+            "description": "{{ $value | humanizePercentage }} throttling of CPU in namespace {{ $labels.namespace }} for container {{ $labels.container }} in pod {{ $labels.pod }} on cluster {{ $labels.cluster }}.",
             "runbook_url": "https://github.com/kubernetes-monitoring/kubernetes-mixin/tree/master/runbook.md#alert-name-cputhrottlinghigh",
             "summary": "Processes experience elevated CPU throttling."
           }
@@ -402,7 +402,7 @@
             "severity": "warning"
           },
           "annotations": {
-            "description": "There are {{ $value }} different semantic versions of Kubernetes components running.",
+            "description": "There are {{ $value }} different semantic versions of Kubernetes components running on cluster {{ $labels.cluster }}.",
             "runbook_url": "https://github.com/kubernetes-monitoring/kubernetes-mixin/tree/master/runbook.md#alert-name-kubeversionmismatch",
             "summary": "Different semantic versions of Kubernetes components running."
           }
@@ -415,7 +415,7 @@
             "severity": "warning"
           },
           "annotations": {
-            "description": "Kubernetes API server client '{{ $labels.job }}/{{ $labels.instance }}' is experiencing {{ $value | humanizePercentage }} errors.'",
+            "description": "Kubernetes API server client '{{ $labels.job }}/{{ $labels.instance }}' is experiencing {{ $value | humanizePercentage }} errors on cluster {{ $labels.cluster }}.",
             "runbook_url": "https://github.com/kubernetes-monitoring/kubernetes-mixin/tree/master/runbook.md#alert-name-kubeclienterrors",
             "summary": "Kubernetes API server client is experiencing errors."
           }
@@ -435,7 +435,7 @@
             "short": "5m"
           },
           "annotations": {
-            "description": "The API server is burning too much error budget.",
+            "description": "The API server is burning too much error budget on cluster {{ $labels.cluster }}.",
             "runbook_url": "https://github.com/kubernetes-monitoring/kubernetes-mixin/tree/master/runbook.md#alert-name-kubeapierrorbudgetburn",
             "summary": "The API server is burning too much error budget."
           }
@@ -450,7 +450,7 @@
             "short": "30m"
           },
           "annotations": {
-            "description": "The API server is burning too much error budget.",
+            "description": "The API server is burning too much error budget on cluster {{ $labels.cluster }}.",
             "runbook_url": "https://github.com/kubernetes-monitoring/kubernetes-mixin/tree/master/runbook.md#alert-name-kubeapierrorbudgetburn",
             "summary": "The API server is burning too much error budget."
           }
@@ -465,7 +465,7 @@
             "short": "2h"
           },
           "annotations": {
-            "description": "The API server is burning too much error budget.",
+            "description": "The API server is burning too much error budget on cluster {{ $labels.cluster }}.",
             "runbook_url": "https://github.com/kubernetes-monitoring/kubernetes-mixin/tree/master/runbook.md#alert-name-kubeapierrorbudgetburn",
             "summary": "The API server is burning too much error budget."
           }
@@ -480,7 +480,7 @@
             "short": "6h"
           },
           "annotations": {
-            "description": "The API server is burning too much error budget.",
+            "description": "The API server is burning too much error budget on cluster {{ $labels.cluster }}.",
             "runbook_url": "https://github.com/kubernetes-monitoring/kubernetes-mixin/tree/master/runbook.md#alert-name-kubeapierrorbudgetburn",
             "summary": "The API server is burning too much error budget."
           }
@@ -537,7 +537,7 @@
             "severity": "warning"
           },
           "annotations": {
-            "description": "Kubernetes aggregated API {{ $labels.name }}/{{ $labels.namespace }} has been only {{ $value | humanize }}% available over the last 10m.",
+            "description": "Kubernetes aggregated API {{ $labels.name }}/{{ $labels.namespace }} has been only {{ $value | humanize }}% available over the last 10m on cluster {{ $labels.cluster }}.",
             "runbook_url": "https://github.com/kubernetes-monitoring/kubernetes-mixin/tree/master/runbook.md#alert-name-kubeaggregatedapidown",
             "summary": "Kubernetes aggregated API is down."
           }
@@ -563,7 +563,7 @@
             "severity": "warning"
           },
           "annotations": {
-            "description": "The kubernetes apiserver has terminated {{ $value | humanizePercentage }} of its incoming requests.",
+            "description": "The kubernetes apiserver has terminated {{ $value | humanizePercentage }} of its incoming requests on cluster {{ $labels.cluster }}.",
             "runbook_url": "https://github.com/kubernetes-monitoring/kubernetes-mixin/tree/master/runbook.md#alert-name-kubeapiterminatedrequests",
             "summary": "The kubernetes apiserver has terminated {{ $value | humanizePercentage }} of its incoming requests."
           }
@@ -581,7 +581,7 @@
             "severity": "warning"
           },
           "annotations": {
-            "description": "{{ $labels.node }} has been unready for more than 15 minutes.",
+            "description": "{{ $labels.node }} has been unready for more than 15 minutes on cluster {{ $labels.cluster }}.",
             "runbook_url": "https://github.com/kubernetes-monitoring/kubernetes-mixin/tree/master/runbook.md#alert-name-kubenodenotready",
             "summary": "Node is not ready."
           }
@@ -594,20 +594,20 @@
             "severity": "warning"
           },
           "annotations": {
-            "description": "{{ $labels.node }} is unreachable and some workloads may be rescheduled.",
+            "description": "{{ $labels.node }} is unreachable and some workloads may be rescheduled on cluster {{ $labels.cluster }}.",
             "runbook_url": "https://github.com/kubernetes-monitoring/kubernetes-mixin/tree/master/runbook.md#alert-name-kubenodeunreachable",
             "summary": "Node is unreachable."
           }
         },
         {
           "alert": "KubeletTooManyPods",
-          "expr": "count by(cluster, node) ((kube_pod_status_phase{job=\"kube-state-metrics\",phase=\"Running\"} == 1) * on(instance,pod,namespace,cluster) group_left(node) topk by(instance,pod,namespace,cluster) (1, kube_pod_info{job=\"kube-state-metrics\"})) / max by(cluster, node) (kube_node_status_capacity{job=\"kube-state-metrics\",resource=\"pods\"} != 1) > 0.95",
+          "expr": "count by (cluster, node) ((kube_pod_status_phase{job=\"kube-state-metrics\", phase=\"Running\"} == 1) * on (cluster, namespace, pod) group_left (node) group by (cluster, namespace, pod, node) (kube_pod_info{job=\"kube-state-metrics\"})) / max by (cluster, node) (kube_node_status_capacity{job=\"kube-state-metrics\", resource=\"pods\"} != 1) > 0.95",
           "for": "15m",
           "labels": {
             "severity": "info"
           },
           "annotations": {
-            "description": "Kubelet '{{ $labels.node }}' is running at {{ $value | humanizePercentage }} of its Pod capacity.",
+            "description": "Kubelet '{{ $labels.node }}' is running at {{ $value | humanizePercentage }} of its Pod capacity on cluster {{ $labels.cluster }}.",
             "runbook_url": "https://github.com/kubernetes-monitoring/kubernetes-mixin/tree/master/runbook.md#alert-name-kubelettoomanypods",
             "summary": "Kubelet is running at capacity."
           }
@@ -620,7 +620,7 @@
             "severity": "warning"
           },
           "annotations": {
-            "description": "The readiness status of node {{ $labels.node }} has changed {{ $value }} times in the last 15 minutes.",
+            "description": "The readiness status of node {{ $labels.node }} has changed {{ $value }} times in the last 15 minutes on cluster {{ $labels.cluster }}.",
             "runbook_url": "https://github.com/kubernetes-monitoring/kubernetes-mixin/tree/master/runbook.md#alert-name-kubenodereadinessflapping",
             "summary": "Node readiness status is flapping."
           }
@@ -633,7 +633,7 @@
             "severity": "warning"
           },
           "annotations": {
-            "description": "The Kubelet Pod Lifecycle Event Generator has a 99th percentile duration of {{ $value }} seconds on node {{ $labels.node }}.",
+            "description": "The Kubelet Pod Lifecycle Event Generator has a 99th percentile duration of {{ $value }} seconds on node {{ $labels.node }} on cluster {{ $labels.cluster }}.",
             "runbook_url": "https://github.com/kubernetes-monitoring/kubernetes-mixin/tree/master/runbook.md#alert-name-kubeletplegdurationhigh",
             "summary": "Kubelet Pod Lifecycle Event Generator is taking too long to relist."
           }
@@ -646,7 +646,7 @@
             "severity": "warning"
           },
           "annotations": {
-            "description": "Kubelet Pod startup 99th percentile latency is {{ $value }} seconds on node {{ $labels.node }}.",
+            "description": "Kubelet Pod startup 99th percentile latency is {{ $value }} seconds on node {{ $labels.node }} on cluster {{ $labels.cluster }}.",
             "runbook_url": "https://github.com/kubernetes-monitoring/kubernetes-mixin/tree/master/runbook.md#alert-name-kubeletpodstartuplatencyhigh",
             "summary": "Kubelet Pod startup latency is too high."
           }
@@ -658,7 +658,7 @@
             "severity": "warning"
           },
           "annotations": {
-            "description": "Client certificate for Kubelet on node {{ $labels.node }} expires in {{ $value | humanizeDuration }}.",
+            "description": "Client certificate for Kubelet on node {{ $labels.node }} expires in {{ $value | humanizeDuration }} on cluster {{ $labels.cluster }}.",
             "runbook_url": "https://github.com/kubernetes-monitoring/kubernetes-mixin/tree/master/runbook.md#alert-name-kubeletclientcertificateexpiration",
             "summary": "Kubelet client certificate is about to expire."
           }
@@ -670,7 +670,7 @@
             "severity": "critical"
           },
           "annotations": {
-            "description": "Client certificate for Kubelet on node {{ $labels.node }} expires in {{ $value | humanizeDuration }}.",
+            "description": "Client certificate for Kubelet on node {{ $labels.node }} expires in {{ $value | humanizeDuration }} on cluster {{ $labels.cluster }}.",
             "runbook_url": "https://github.com/kubernetes-monitoring/kubernetes-mixin/tree/master/runbook.md#alert-name-kubeletclientcertificateexpiration",
             "summary": "Kubelet client certificate is about to expire."
           }
@@ -682,7 +682,7 @@
             "severity": "warning"
           },
           "annotations": {
-            "description": "Server certificate for Kubelet on node {{ $labels.node }} expires in {{ $value | humanizeDuration }}.",
+            "description": "Server certificate for Kubelet on node {{ $labels.node }} expires in {{ $value | humanizeDuration }} on cluster {{ $labels.cluster }}.",
             "runbook_url": "https://github.com/kubernetes-monitoring/kubernetes-mixin/tree/master/runbook.md#alert-name-kubeletservercertificateexpiration",
             "summary": "Kubelet server certificate is about to expire."
           }
@@ -694,7 +694,7 @@
             "severity": "critical"
           },
           "annotations": {
-            "description": "Server certificate for Kubelet on node {{ $labels.node }} expires in {{ $value | humanizeDuration }}.",
+            "description": "Server certificate for Kubelet on node {{ $labels.node }} expires in {{ $value | humanizeDuration }} on cluster {{ $labels.cluster }}.",
             "runbook_url": "https://github.com/kubernetes-monitoring/kubernetes-mixin/tree/master/runbook.md#alert-name-kubeletservercertificateexpiration",
             "summary": "Kubelet server certificate is about to expire."
           }
@@ -707,7 +707,7 @@
             "severity": "warning"
           },
           "annotations": {
-            "description": "Kubelet on node {{ $labels.node }} has failed to renew its client certificate ({{ $value | humanize }} errors in the last 5 minutes).",
+            "description": "Kubelet on node {{ $labels.node }} has failed to renew its client certificate ({{ $value | humanize }} errors in the last 5 minutes) on cluster {{ $labels.cluster }}.",
             "runbook_url": "https://github.com/kubernetes-monitoring/kubernetes-mixin/tree/master/runbook.md#alert-name-kubeletclientcertificaterenewalerrors",
             "summary": "Kubelet has failed to renew its client certificate."
           }
@@ -720,7 +720,7 @@
             "severity": "warning"
           },
           "annotations": {
-            "description": "Kubelet on node {{ $labels.node }} has failed to renew its server certificate ({{ $value | humanize }} errors in the last 5 minutes).",
+            "description": "Kubelet on node {{ $labels.node }} has failed to renew its server certificate ({{ $value | humanize }} errors in the last 5 minutes) on cluster {{ $labels.cluster }}.",
             "runbook_url": "https://github.com/kubernetes-monitoring/kubernetes-mixin/tree/master/runbook.md#alert-name-kubeletservercertificaterenewalerrors",
             "summary": "Kubelet has failed to renew its server certificate."
           }
