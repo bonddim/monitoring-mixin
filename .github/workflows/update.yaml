@@ -5,53 +5,61 @@ on:
   schedule:
     - cron: "0 7 * * 1"
 
+permissions:
+  contents: write
+  pull-requests: write
+
 jobs:
   auto:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-
-      - uses: actions/create-github-app-token@v1
-        id: app-token
-        with:
-          app-id: ${{ secrets.app_id  }}
-          private-key: ${{ secrets.app_private_key }}
-          owner: ${{ github.repository_owner }}
-
       - uses: actions/setup-go@v5
         with:
           go-version-file: go.mod
 
       - name: Render mixins
-        run: make JB_ARGS=update
+        run: make update
 
       - name: Check for changed mixins
         id: status
         run: |
           if [[ $(git status --short docs | wc -l) -ne 0 ]]; then
             version=$(jq -r '.dependencies[] | select(.source.git.remote | contains("kubernetes-mixin")) | .version' jsonnetfile.lock.json)
-            echo "mixins-version=$version" >> "$GITHUB_OUTPUT"
-            echo "status=updated" >> "$GITHUB_OUTPUT"
+            echo "version=$version" | tee -a "$GITHUB_OUTPUT"
           fi
 
       - uses: peter-evans/create-pull-request@v7
-        if: ${{ steps.status.outputs.status == 'updated' }}
+        if: ${{ steps.status.outputs.version != '' }}
         id: cpr
         with:
-          token: ${{ steps.app-token.outputs.token }}
-          title: Update mixins
+          token: ${{ secrets.GITHUB_TOKEN }}
+          title: Update mixins to ${{ steps.status.outputs.version }}
           commit-message: Update mixins to ${{ steps.status.outputs.version }}
           sign-commits: true
+          labels: "auto-update"
+          branch: mixins-auto-update
+          body: >
+            Auto-generated PR from ${{ github.workflow }}
+            with the mixins update to version ${{ steps.status.outputs.version }}.
+
+      - name: Set automerge
+        if: ${{ steps.cpr.outputs.pull-request-operation == 'created' }}
+        run: gh pr merge ${{ steps.cpr.outputs.pull-request-number }} --auto --delete-branch --squash
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - uses: actions/create-github-app-token@v1
+        id: app-token
+        if: ${{ steps.cpr.outputs.pull-request-operation == 'created' }}
+        with:
+          app-id: ${{ secrets.app_id  }}
+          private-key: ${{ secrets.app_private_key }}
+          owner: ${{ github.repository_owner }}
 
       - name: Auto approve
         continue-on-error: true
         if: ${{ steps.cpr.outputs.pull-request-operation == 'created' }}
         run: gh pr review --approve "${{ steps.cpr.outputs.pull-request-number }}"
-        env:
-          GH_TOKEN: ${{ steps.app-token.outputs.token }}
-
-      - name: Set automerge
-        if: ${{ steps.cpr.outputs.pull-request-operation == 'created' }}
-        run: gh pr merge ${{ steps.cpr.outputs.pull-request-number }} --auto --delete-branch --squash
         env:
           GH_TOKEN: ${{ steps.app-token.outputs.token }}
