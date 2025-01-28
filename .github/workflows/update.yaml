@@ -38,8 +38,6 @@ jobs:
         with:
           app-id: ${{ secrets.app_id  }}
           private-key: ${{ secrets.app_private_key }}
-          owner: ${{ github.repository_owner }}
-          repositories: ${{ github.repository }}
 
       - uses: peter-evans/create-pull-request@v7
         if: ${{ steps.status.outputs.version != '' }}
