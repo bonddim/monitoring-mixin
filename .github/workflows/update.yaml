@@ -29,7 +29,7 @@ jobs:
             repo=$(jq -r '.dependencies[] | select(.source.git.remote | contains("kubernetes-mixin")) | .source.git.remote | sub(".git$"; "")' jsonnetfile.lock.json)
             echo "version=$version" | tee -a "$GITHUB_OUTPUT"
             echo "version-short=${version:0:7}" | tee -a "$GITHUB_OUTPUT"
-            echo "version-uri=${repo}/commit/{$version}" | tee -a "$GITHUB_OUTPUT"
+            echo "version-uri=${repo}/commit/${version}" | tee -a "$GITHUB_OUTPUT"
           fi
 
       - uses: actions/create-github-app-token@v1
