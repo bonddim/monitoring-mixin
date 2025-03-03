@@ -67,7 +67,7 @@ func main() {
 
 	inputFile := os.Args[1]
 
-	ruleGroups, errs := rulefmt.ParseFile(inputFile)
+	ruleGroups, errs := rulefmt.ParseFile(inputFile, false)
 	if errs != nil {
 		fmt.Printf("Error parsing file: %v\n", errs)
 		os.Exit(1)
