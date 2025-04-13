@@ -32,7 +32,7 @@ jobs:
             echo "version-uri=${repo}/commit/${version}" | tee -a "$GITHUB_OUTPUT"
           fi
 
-      - uses: actions/create-github-app-token@v1
+      - uses: actions/create-github-app-token@v2
         id: app-token
         if: ${{ steps.status.outputs.version != '' }}
         with:
