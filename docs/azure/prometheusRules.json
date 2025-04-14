@@ -353,7 +353,7 @@
       "rules": [
         {
           "record": "node:windows_node:sum",
-          "expr": "count by (cluster) (windows_system_system_up_time{job=\"windows-exporter\"})"
+          "expr": "count by (cluster) (windows_system_boot_time_timestamp_seconds{job=\"windows-exporter\"})"
         },
         {
           "record": "node:windows_node_num_cpu:sum",

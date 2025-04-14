@@ -232,7 +232,7 @@ groups:
       rules:
         - record: "node:windows_node:sum"
           expr: |-
-            count by (cluster) (windows_system_system_up_time{job="windows-exporter"})
+            count by (cluster) (windows_system_boot_time_timestamp_seconds{job="windows-exporter"})
         - record: "node:windows_node_num_cpu:sum"
           expr: |-
             count by (cluster, instance) (sum by (cluster, instance, core) (windows_cpu_time_total{job="windows-exporter"}))
