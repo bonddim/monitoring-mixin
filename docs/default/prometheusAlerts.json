@@ -230,7 +230,7 @@
       "rules": [
         {
           "alert": "KubeCPUOvercommit",
-          "expr": "sum(namespace_cpu:kube_pod_container_resource_requests:sum{}) - (sum(kube_node_status_allocatable{resource=\"cpu\", job=\"kube-state-metrics\"}) - max(kube_node_status_allocatable{resource=\"cpu\", job=\"kube-state-metrics\"})) > 0 and (sum(kube_node_status_allocatable{resource=\"cpu\", job=\"kube-state-metrics\"}) - max(kube_node_status_allocatable{resource=\"cpu\", job=\"kube-state-metrics\"})) > 0",
+          "expr": "(sum(namespace_cpu:kube_pod_container_resource_requests:sum{}) - sum(kube_node_status_allocatable{resource=\"cpu\", job=\"kube-state-metrics\"}) > 0 and count(max by (node) (kube_node_role{job=\"kube-state-metrics\", role=\"control-plane\"})) < 3) or (sum(namespace_cpu:kube_pod_container_resource_requests:sum{}) - (sum(kube_node_status_allocatable{resource=\"cpu\", job=\"kube-state-metrics\"}) - max(kube_node_status_allocatable{resource=\"cpu\", job=\"kube-state-metrics\"})) > 0 and (sum(kube_node_status_allocatable{resource=\"cpu\", job=\"kube-state-metrics\"}) - max(kube_node_status_allocatable{resource=\"cpu\", job=\"kube-state-metrics\"})) > 0)",
           "for": "10m",
           "labels": {
             "severity": "warning"
@@ -243,7 +243,7 @@
         },
         {
           "alert": "KubeMemoryOvercommit",
-          "expr": "sum(namespace_memory:kube_pod_container_resource_requests:sum{}) - (sum(kube_node_status_allocatable{resource=\"memory\", job=\"kube-state-metrics\"}) - max(kube_node_status_allocatable{resource=\"memory\", job=\"kube-state-metrics\"})) > 0 and (sum(kube_node_status_allocatable{resource=\"memory\", job=\"kube-state-metrics\"}) - max(kube_node_status_allocatable{resource=\"memory\", job=\"kube-state-metrics\"})) > 0",
+          "expr": "(sum(namespace_memory:kube_pod_container_resource_requests:sum{}) - sum(kube_node_status_allocatable{resource=\"memory\", job=\"kube-state-metrics\"}) > 0 and count(max by (node) (kube_node_role{job=\"kube-state-metrics\", role=\"control-plane\"})) < 3) or (sum(namespace_memory:kube_pod_container_resource_requests:sum{}) - (sum(kube_node_status_allocatable{resource=\"memory\", job=\"kube-state-metrics\"}) - max(kube_node_status_allocatable{resource=\"memory\", job=\"kube-state-metrics\"})) > 0 and (sum(kube_node_status_allocatable{resource=\"memory\", job=\"kube-state-metrics\"}) - max(kube_node_status_allocatable{resource=\"memory\", job=\"kube-state-metrics\"})) > 0)",
           "for": "10m",
           "labels": {
             "severity": "warning"
