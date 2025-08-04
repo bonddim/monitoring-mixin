@@ -229,32 +229,6 @@
       "name": "kubernetes-resources",
       "rules": [
         {
-          "alert": "KubeCPUOvercommit",
-          "expr": "(sum(namespace_cpu:kube_pod_container_resource_requests:sum{}) by (cluster) - sum(kube_node_status_allocatable{job=\"kube-state-metrics\",resource=\"cpu\"}) by (cluster) > 0 and count by (cluster) (max by (cluster, node) (kube_node_role{job=\"kube-state-metrics\", role=\"control-plane\"})) < 3) or (sum(namespace_cpu:kube_pod_container_resource_requests:sum{}) by (cluster) - (sum(kube_node_status_allocatable{job=\"kube-state-metrics\",resource=\"cpu\"}) by (cluster) - max(kube_node_status_allocatable{job=\"kube-state-metrics\",resource=\"cpu\"}) by (cluster)) > 0 and (sum(kube_node_status_allocatable{job=\"kube-state-metrics\",resource=\"cpu\"}) by (cluster) - max(kube_node_status_allocatable{job=\"kube-state-metrics\",resource=\"cpu\"}) by (cluster)) > 0)",
-          "for": "10m",
-          "labels": {
-            "severity": "warning"
-          },
-          "annotations": {
-            "description": "Cluster {{ $labels.cluster }} has overcommitted CPU resource requests for Pods by {{ printf \"%.2f\" $value }} CPU shares and cannot tolerate node failure.",
-            "runbook_url": "https://github.com/kubernetes-monitoring/kubernetes-mixin/tree/master/runbook.md#alert-name-kubecpuovercommit",
-            "summary": "Cluster has overcommitted CPU resource requests."
-          }
-        },
-        {
-          "alert": "KubeMemoryOvercommit",
-          "expr": "(sum(namespace_memory:kube_pod_container_resource_requests:sum{}) by (cluster) - sum(kube_node_status_allocatable{resource=\"memory\", job=\"kube-state-metrics\"}) by (cluster) > 0 and count by (cluster) (max by (cluster, node) (kube_node_role{job=\"kube-state-metrics\", role=\"control-plane\"})) < 3) or (sum(namespace_memory:kube_pod_container_resource_requests:sum{}) by (cluster) - (sum(kube_node_status_allocatable{resource=\"memory\", job=\"kube-state-metrics\"}) by (cluster) - max(kube_node_status_allocatable{resource=\"memory\", job=\"kube-state-metrics\"}) by (cluster)) > 0 and (sum(kube_node_status_allocatable{resource=\"memory\", job=\"kube-state-metrics\"}) by (cluster) - max(kube_node_status_allocatable{resource=\"memory\", job=\"kube-state-metrics\"}) by (cluster)) > 0)",
-          "for": "10m",
-          "labels": {
-            "severity": "warning"
-          },
-          "annotations": {
-            "description": "Cluster {{ $labels.cluster }} has overcommitted memory resource requests for Pods by {{ $value | humanize }} bytes and cannot tolerate node failure.",
-            "runbook_url": "https://github.com/kubernetes-monitoring/kubernetes-mixin/tree/master/runbook.md#alert-name-kubememoryovercommit",
-            "summary": "Cluster has overcommitted memory resource requests."
-          }
-        },
-        {
           "alert": "KubeCPUQuotaOvercommit",
           "expr": "sum(min without(resource) (kube_resourcequota{job=\"kube-state-metrics\", type=\"hard\", resource=~\"(cpu|requests.cpu)\"})) by (cluster) / sum(kube_node_status_allocatable{resource=\"cpu\", job=\"kube-state-metrics\"}) by (cluster) > 1.5",
           "for": "5m",
@@ -678,7 +652,7 @@
         },
         {
           "alert": "KubeletPodStartUpLatencyHigh",
-          "expr": "histogram_quantile(0.99, sum(rate(kubelet_pod_worker_duration_seconds_bucket{job=\"kubelet\"}[5m])) by (cluster, instance, le)) * on(cluster, instance) group_left(node) kubelet_node_name{job=\"kubelet\"} > 60",
+          "expr": "histogram_quantile(0.99, sum by (cluster, instance, le) (topk by (cluster, instance, le, operation_type) (1, rate(kubelet_pod_worker_duration_seconds_bucket{job=\"kubelet\"}[5m])))) * on(cluster, instance) group_left(node) topk by (cluster, instance, node) (1, kubelet_node_name{job=\"kubelet\"}) > 60",
           "for": "15m",
           "labels": {
             "severity": "warning"
