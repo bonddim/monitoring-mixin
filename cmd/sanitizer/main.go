@@ -35,15 +35,15 @@ func NormalizeExpression(expr string) string {
 // ValidateAndNormalizeGroups validates and normalizes rules inside rule groups
 func ValidateAndNormalizeGroups(ruleGroups *rulefmt.RuleGroups) {
 	for i, group := range ruleGroups.Groups {
-		var validRules []rulefmt.RuleNode
+		var validRules []rulefmt.Rule
 
 		for _, rule := range group.Rules {
-			rule.Expr.Value = NormalizeExpression(rule.Expr.Value)
+			rule.Expr = NormalizeExpression(rule.Expr)
 
-			if errs := rule.Validate(); len(errs) == 0 {
+			if errs := rule.Validate(rulefmt.RuleNode{}); len(errs) == 0 {
 				validRules = append(validRules, rule)
 			} else {
-				logInvalidRule(fmt.Sprintf("Skipping invalid rule in group '%s': %s\n", group.Name, rule.Expr.Value))
+				logInvalidRule(fmt.Sprintf("Skipping invalid rule in group '%s': %s\n", group.Name, rule.Expr))
 			}
 		}
 		ruleGroups.Groups[i].Rules = validRules
